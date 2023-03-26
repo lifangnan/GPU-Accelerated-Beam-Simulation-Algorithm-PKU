@@ -1,0 +1,104 @@
+drift 100 50     
+drift 90 50                                                                                                                                                                                       
+Q1:quad 100 13.19614669 12
+drift 58 50                                                                                                                                                                                  
+Q2:quad 200 -10.9504453 28     
+drift 58 50                                                                                                                                                               
+Q3:quad 100 12.92279794 28                                                                                                   
+drift 199 50
+drift 199 50
+drift 199 50
+drift 199 50
+drift 199 50
+drift 199 50
+
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+drift 19.9 50
+
+drift 199 50
+
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+
+EDGE 0 650 70 0.45 2.8 40 0
+BEND 45 650 0 30 0
+EDGE 0 650 70 0.45 2.8 40 0
+
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+drift 136.5 50
+
+!APERTURERECTANGULAR 10 10 100 100
+
+drift 100 50
+
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+drift 10 50
+
+Q4:quad 300 -1.8711 28
+drift 100 50
+drift 100 50
+Q5:quad 300 3.0186 28 
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
+drift 101.5 50
