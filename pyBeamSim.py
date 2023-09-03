@@ -7,7 +7,7 @@ import pandas as pd
 import seaborn as sns
 import json
 
-dll = CDLL("./HpsimLib.dll")
+dll = CDLL("./src/HpsimLib.dll")
 
 # 定义参数和返回值的类型
 dll.init_beam.argtypes = [c_int, c_double, c_double, c_double]
@@ -51,6 +51,8 @@ dll.add_Drift.argtypes = [c_char_p, c_double, c_double]
 dll.add_Bend.argtypes = [c_char_p, c_double, c_double, c_double, c_double, c_double, c_double, c_double, c_double]
 dll.add_Quad.argtypes = [c_char_p, c_double, c_double, c_double]
 dll.add_Solenoid.argtypes = [c_char_p, c_double, c_double, c_double]
+dll.add_StraightCapillary.argtypes = [c_char_p, c_double, c_double, c_double]
+dll.add_CurvedCapillary.argtypes = [c_char_p, c_double, c_double, c_double, c_double]
 dll.add_ApertureRectangular.argtypes = [c_char_p, c_double, c_double, c_double, c_double]
 dll.add_ApertureCircular.argtypes = [c_char_p, c_double]
 
@@ -208,6 +210,12 @@ class BeamSimulator():
     
     def add_Solenoid(self, ID, Length, Aperture, FieldGradient):
         dll.add_Solenoid(ID.encode(), Length, Aperture, FieldGradient)
+
+    def add_StraightCapillary(self, ID, Length, Aperture, Current):
+        dll.add_StraightCapillary(ID.encode(), Length, Aperture, Current)
+
+    def add_CurvedCapillary(self, ID, Angle, Radius, Aperture, Current):
+        dll.add_CurvedCapillary(ID.encode(), Angle, Radius, Aperture, Current)
     
     def add_ApertureRectangular(self, ID, XLeft, XRight, YBottom, YTop):
         dll.add_ApertureRectangular(ID.encode(), XLeft, XRight, YBottom, YTop)
@@ -389,40 +397,40 @@ class BeamSimulator():
         plt.show()
 
 
-    # def plot_beam(self):
-    #     cwd = os.getcwd()
-    #     self.beam_print_to_file(cwd + "\\temp_Beam")
-    #     beam_data = np.loadtxt(cwd + "\\temp_Beam")
+    def plot_beam(self):
+        cwd = os.getcwd()
+        self.beam_print_to_file(cwd + "\\temp_Beam")
+        beam_data = np.loadtxt(cwd + "\\temp_Beam")
 
-    #     beam_data = beam_data[beam_data[:,-2]==0, :]
-    #     # intibeam_df = pd.DataFrame(columns=['x','y'])
-    #     # intibeam_df['x'] = beam_data[:, 0]
-    #     # intibeam_df['y'] = beam_data[:, 2]
-    #     # sns.jointplot(x="x", y="y", data=intibeam_df, kind="kde", levels=50, fill=True, cmap='binary')
+        beam_data = beam_data[beam_data[:,-2]==0, :]
+        # intibeam_df = pd.DataFrame(columns=['x','y'])
+        # intibeam_df['x'] = beam_data[:, 0]
+        # intibeam_df['y'] = beam_data[:, 2]
+        # sns.jointplot(x="x", y="y", data=intibeam_df, kind="kde", levels=50, fill=True, cmap='binary')
 
-    #     plt.figure(figsize=[15,5])
-    #     plt.subplot(1,3,1)
-    #     plt.scatter(beam_data[:, 0], beam_data[:, 2], s=1)
-    #     plt.axis("equal")
-    #     plt.xlabel("x")
-    #     plt.ylabel("y")
-    #     plt.title("x-y")
+        plt.figure(figsize=[15,5])
+        plt.subplot(1,3,1)
+        plt.scatter(beam_data[:, 0], beam_data[:, 2], s=1)
+        plt.axis("equal")
+        plt.xlabel("x")
+        plt.ylabel("y")
+        plt.title("x-y")
 
-    #     plt.subplot(1,3,2)
-    #     plt.scatter(beam_data[:, 0], beam_data[:, 1], s=1)
-    #     plt.xlabel("x")
-    #     plt.ylabel("px")
-    #     plt.title("x-px")
+        plt.subplot(1,3,2)
+        plt.scatter(beam_data[:, 0], beam_data[:, 1], s=1)
+        plt.xlabel("x")
+        plt.ylabel("px")
+        plt.title("x-px")
 
-    #     plt.subplot(1,3,3)
-    #     plt.scatter(beam_data[:, 2], beam_data[:, 3], s=1)
-    #     plt.xlabel("y")
-    #     plt.ylabel("py")
-    #     plt.title("y-py")
+        plt.subplot(1,3,3)
+        plt.scatter(beam_data[:, 2], beam_data[:, 3], s=1)
+        plt.xlabel("y")
+        plt.ylabel("py")
+        plt.title("y-py")
 
-    #     plt.show()
+        plt.show()
 
-    #     os.remove(cwd + "\\temp_Beam")
+        os.remove(cwd + "\\temp_Beam")
 
     def plot_beam_phase_map(self):
         self.UpdateBeamParameters()
@@ -431,22 +439,21 @@ class BeamSimulator():
         plt.subplot(1,3,1)
         plt.scatter(particles['x'], particles['y'], s=1)
         plt.axis("equal")
-        plt.xlabel("x(m)")
-        plt.ylabel("y(m)")
+        plt.xlabel("x")
+        plt.ylabel("y")
         plt.title("x-y")
 
         plt.subplot(1,3,2)
         plt.scatter(particles['x'], particles['xp'], s=1)
-        plt.xlabel("x(m)")
-        plt.ylabel("xp(rad)")
+        plt.xlabel("x")
+        plt.ylabel("xp")
         plt.title("x-xp")
 
         plt.subplot(1,3,3)
         plt.scatter(particles['y'], particles['yp'], s=1)
-        plt.xlabel("y(m)")
-        plt.ylabel("yp(rad)")
+        plt.xlabel("y")
+        plt.ylabel("yp")
         plt.title("y-yp")
-        plt.show()
 
     
     def dllTest(self):
